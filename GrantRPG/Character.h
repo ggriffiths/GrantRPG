@@ -1,6 +1,7 @@
 #pragma once
 #include "Items.h"
 #include <string>
+#include <vector>
 
 class Maps;
 class Npc;
@@ -16,21 +17,9 @@ class Character
 		Inventory(bool loadFromFile);
 		// Inventory Slots
 		int numItemsHolding;
-		Items item1;
-		Items item2;
-		Items item3;
-		Items item4;
-		Items item5;
-		Items item6;
-		Items item7;
-		Items item8;
-		Items item9;
-		Items item10;
-		Items item11;
-		Items item12;
+		Items bag[12];
 
 		// Change Inventory
-		void setAllItems(Items& i1,Items& i2, Items& i3, Items& i4,Items& i5,Items& i6,Items& i7,Items& i8,Items& i9,Items& i10,Items& i11,Items& i12);
 		void setItem(Items& new_item,int spot);
 		void addItem(const Items& new_item); 
 		void removeItem(int spot);

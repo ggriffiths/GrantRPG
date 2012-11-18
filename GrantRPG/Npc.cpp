@@ -40,6 +40,10 @@ Npc::Npc(int new_npc_type,Settings& currentSettings,Maps& currentLevel) : Charac
 	Items sword(1);
 	Items shield(2);
 
+	//Create default inventories
+	Items enemyBag();
+	Items vendorBag();
+
 	switch(new_npc_type)
 	{
 	//Vendors
@@ -52,7 +56,6 @@ Npc::Npc(int new_npc_type,Settings& currentSettings,Maps& currentLevel) : Charac
 		health=5;
 		coins=100;
 		for(int k=0;k<22;k++){for(int i=0;i<42;i++){if(currentLevel.map[k][i]==character_type)setLocation(k,i);}}
-		inv.setAllItems(sword,sword,sword,empty,empty,empty,empty,empty,empty,empty,empty,empty);
 		harm=false;
 		break;
 	case 32:
@@ -64,7 +67,6 @@ Npc::Npc(int new_npc_type,Settings& currentSettings,Maps& currentLevel) : Charac
 		health=5;
 		coins=100;
 		for(int k=0;k<22;k++){for(int i=0;i<42;i++){if(currentLevel.map[k][i]==character_type)setLocation(k,i);}}
-		inv.setAllItems(sword,sword,sword,sword,sword,empty,empty,empty,empty,empty,empty,empty);
 		harm=false;
 		break;
 
@@ -78,7 +80,6 @@ Npc::Npc(int new_npc_type,Settings& currentSettings,Maps& currentLevel) : Charac
 		health=6;
 		coins=5;
 		for(int k=0;k<22;k++){for(int i=0;i<42;i++){if(currentLevel.map[k][i]==character_type)setLocation(k,i);}}
-		inv.setAllItems(sword,empty,empty,empty,empty,empty,empty,empty,empty,empty,empty,empty);
 		harm=true;
 		break;
 
@@ -91,7 +92,6 @@ Npc::Npc(int new_npc_type,Settings& currentSettings,Maps& currentLevel) : Charac
 		health=8;
 		coins=20;
 		for(int k=0;k<22;k++){for(int i=0;i<42;i++){if(currentLevel.map[k][i]==character_type)setLocation(k,i);}}
-		inv.setAllItems(sword,sword,sword,shield,empty,empty,empty,empty,empty,empty,empty,empty);
 		harm=true;
 		break;
 	default:

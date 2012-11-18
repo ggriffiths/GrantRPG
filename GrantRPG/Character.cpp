@@ -340,8 +340,9 @@ void Character::addCoin()
 	coins++;
 }
 
+
 //Holds objects of items!
-Character::Inventory::Inventory(bool loadFromFile) : item1(0),item2(0),item3(0),item4(0),item5(0),item6(0),item7(0),item8(0),item9(0),item10(0),item11(0),item12(0)
+Character::Inventory::Inventory(bool loadFromFile) : bag()
 {
 	if(loadFromFile)
 	{
@@ -380,71 +381,27 @@ void Character::Inventory::printInventory(bool player)
 	cout << "  \n  ";
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0xf0);
 
-	//Line 1 (5 Items)
-		//Item 1
-			cout << "  " << item1.icon;
-			if(item1.quantity>1) cout << "(" <<item1.quantity << ")";
-			else cout << "   ";
-		//Item 2
-			cout << "  " << item2.icon;
-			if(item2.quantity>1) cout << "(" <<item2.quantity << ")";
-			else cout << "   ";
-		//Item 3
-			cout << "  " << item3.icon;
-			if(item3.quantity>1) cout << "(" <<item3.quantity << ")";
-			else cout << "   ";
-		//Item 4
-			cout << "  " << item4.icon;
-			if(item4.quantity>1) cout << "(" <<item4.quantity << ")";
-			else cout << "   ";
-		//Item 5
-			cout << "  " << item5.icon;
-			if(item5.quantity>1) cout << "(" <<item5.quantity << ")";
-			else cout << "   ";
-
-		//Item 6 (1 for testing..)
-			cout << "  " << item6.icon;
-			if(item6.quantity>1) cout << "(" <<item6.quantity << ")";
-			else cout << "   ";
-			
-
-	//Spacer...
-	pSpaces(2);
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x1f);
-	cout << "  \n  ";
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0xf0);
-	pSpaces(38);
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x1f);
-	cout << "  \n  ";
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0xf0);
-
-
-	//Line 2 (5 Items)
-		//Item 1
-			cout << "  " << item7.icon;
-			if(item7.quantity>1) cout << "(" <<item7.quantity << ")";
-			else cout << "   ";
-		//Item 2
-			cout << "  " << item8.icon;
-			if(item8.quantity>1) cout << "(" <<item8.quantity << ")";
-			else cout << "   ";
-		//Item 3
-			cout << "  " << item9.icon;
-			if(item9.quantity>1) cout << "(" <<item9.quantity << ")";
-			else cout << "   ";
-		//Item 4
-			cout << "  " << item10.icon;
-			if(item10.quantity>1) cout << "(" <<item10.quantity << ")";
-			else cout << "   ";
-		//Item 5
-			cout << "  " << item11.icon;
-			if(item11.quantity>1) cout << "(" <<item11.quantity << ")";
-			else cout << "   ";
-
-		//Item 6 (1 for testing..)
-			cout << "  " << item12.icon;
-			if(item12.quantity>1) cout << "(" <<item12.quantity << ")";
-			else cout << "   ";
+	//Line 1 (6 Items)
+	for(int i=0;i<12;i++)
+	{
+		// line space after 6
+		if((i%6)==0)
+		{			
+			//Spacer...
+			pSpaces(2);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x1f);
+			cout << "  \n  ";
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0xf0);
+			pSpaces(38);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x1f);
+			cout << "  \n  ";
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0xf0);
+		}
+		cout << "  " << bag[i].icon;
+		if(bag[i].quantity>1) cout << "(" <<bag[i].quantity << ")";
+		else cout << "   ";
+		
+	}
 			
 	//Bottom Bar
 	pSpaces(2);
@@ -461,18 +418,10 @@ void Character::Inventory::printInventory(bool player)
 	unsigned char coin=155;
 	if(player) cout << "Your items: ";
 	else  cout << "NPC items: ";
-	if(item1.name!="") cout << item1.name << "(" << coin << item1.value << ")" << ", ";
-	if(item2.name!="") cout << item2.name << "(" << coin << item2.value << ")" << ", ";
-	if(item3.name!="") cout << item3.name << "(" << coin << item3.value << ")" << ", ";
-	if(item4.name!="") cout << item4.name << "(" << coin << item4.value << ")" << ", ";
-	if(item5.name!="") cout << item5.name << "(" << coin << item5.value << ")" << ", ";
-	if(item6.name!="") cout << item6.name << "(" << coin << item6.value << ")" << ", ";
-	if(item7.name!="") cout << item7.name << "(" << coin << item7.value << ")" << ", ";
-	if(item8.name!="") cout << item8.name << "(" << coin << item8.value << ")" << ", ";
-	if(item9.name!="") cout << item9.name << "(" << coin << item9.value << ")" << ", ";
-	if(item10.name!="") cout << item10.name << "(" << coin << item10.value << ")" << ", ";
-	if(item11.name!="") cout << item11.name << "(" << coin << item11.value << ")" << ", ";
-	if(item12.name!="") cout << item12.name << "(" << coin << item12.value << ")" << " ";
+	for(int i=0;i<12;i++)
+	{
+		if(bag[i].name!="") cout << bag[i].name << "(" << coin << bag[i].value << ")" << ", ";
+	}
 	cout << "\n";
 }
 
@@ -485,45 +434,7 @@ void Character::Inventory::pSpaces(int size)
 //Simply sets an item to an inventory slot.
 void Character::Inventory::setItem(Items& new_item,int spot)
 {
-	switch(spot)
-	{
-	case 1:
-		item1=new_item;
-		break;
-	case 2:
-		item2=new_item;
-		break; 
-	case 3:
-		item3=new_item;
-		break;
-	case 4:
-		item4=new_item;
-		break; 
-	case 5:
-		item5=new_item;
-		break; 
-	case 6:
-		item6=new_item;
-		break;
-	case 7:
-		item7=new_item;
-		break; 
-	case 8:
-		item8=new_item;
-		break;
-	case 9:
-		item9=new_item;
-		break; 
-	case 10:
-		item10=new_item;
-		break; 
-	case 11:
-		item11=new_item;
-		break; 
-	case 12:
-		item12=new_item;
-		break; 
-	};
+	bag[spot] = new_item;
 }
 
 //Adds item to inventory. If item already exists in inventory, it adds to the stack.
@@ -532,126 +443,21 @@ void Character::Inventory::addItem(const Items& new_item)
 	int invSlot=getSpotOfItemInInv(new_item);
 	if(invSlot>0)
 	{
-		switch(invSlot)
-		{
-			case 1:
-				item1.quantity++;
-				break;
-			case 2:
-				item2.quantity++;
-				break; 
-			case 3:
-				item3.quantity++;
-				break;
-			case 4:
-				item4.quantity++;
-				break; 
-			case 5:
-				item5.quantity++;
-				break; 
-			case 6:
-				item6.quantity++;
-				break;
-			case 7:
-				item7.quantity++;
-				break; 
-			case 8:
-				item8.quantity++;
-				break;
-			case 9:
-				item9.quantity++;
-				break; 
-			case 10:
-				item10.quantity++;
-				break; 
-			case 11:
-				item11.quantity++;
-				break; 
-			case 12:
-				item12.quantity++;
-				break; 
-		};
+		bag[invSlot].quantity++;
 	}
 	else if(invSlot==0)
 	{
 		numItemsHolding++;
-		switch(numItemsHolding)
-		{
-			case 1:
-				item1=new_item;
-				break;
-			case 2:
-				item2=new_item;
-				break; 
-			case 3:
-				item3=new_item;
-				break;
-			case 4:
-				item4=new_item;
-				break; 
-			case 5:
-				item5=new_item;
-				break; 
-			case 6:
-				item6=new_item;
-				break;
-			case 7:
-				item7=new_item;
-				break; 
-			case 8:
-				item8=new_item;
-				break;
-			case 9:
-				item9=new_item;
-				break; 
-			case 10:
-				item10=new_item;
-				break; 
-			case 11:
-				item11=new_item;
-				break; 
-			case 12:
-				item12=new_item;
-				break; 
-		};
+		bag[numItemsHolding]=new_item;
 	}
-}
-
-//Sets all items
-void Character::Inventory::setAllItems(Items& i1,Items& i2, Items& i3, Items& i4,Items& i5,Items& i6,Items& i7,Items& i8,Items& i9,Items& i10,Items& i11,Items& i12)
-{
-	item1=i1;
-	item2=i2;
-	item3=i3;
-	item4=i4;
-	item5=i5;
-	item6=i6;
-	item7=i7;
-	item8=i8;
-	item9=i9;
-	item10=i10;
-	item11=i11;
-	item12=i12;
 }
 
 //Finds the location of an item in the inventory.
 int Character::Inventory::getSpotOfItemInInv(const Items& new_item)
 {
-	char icons[12]={item1.icon,
-		item2.icon,
-		item3.icon,
-		item4.icon,
-		item6.icon,
-		item7.icon,
-		item8.icon,
-		item9.icon,
-		item10.icon,
-		item11.icon,
-		item12.icon};
-
 	for(int i=0;i<12;i++)
 	{
-		if(icons[i]==new_item.icon)
+		if(bag[i].icon==new_item.icon)
 		{
 			return (i+1);
 		}
@@ -722,149 +528,149 @@ void Character::vendorScreen(Inventory& vendor_inv)
 				{
 					invalid=true;
 				}
-				else if(input==vendor_inv.item1.name)
+				else if(input==vendor_inv.bag[0].name)
 				{
 					notEnough="false";
-					if(coins>vendor_inv.item1.value)
+					if(coins>vendor_inv.bag[0].value)
 					{
-						cout << "\n" << vendor_inv.item1.name << "bought for " << vendor_inv.item1.value << " coins!\n";
-						coins=coins-vendor_inv.item1.value;
-						inv.addItem(vendor_inv.item1);
+						cout << "\n" << vendor_inv.bag[0].name << "bought for " << vendor_inv.bag[0].value << " coins!\n";
+						coins=coins-vendor_inv.bag[0].value;
+						inv.addItem(vendor_inv.bag[0]);
 						break;
 					}
-					else notEnough=vendor_inv.item1.name;
+					else notEnough=vendor_inv.bag[0].name;
 				}
-				else if(input==vendor_inv.item2.name)
+				else if(input==vendor_inv.bag[1].name)
 				{
 					notEnough="false";
-					if(coins>vendor_inv.item2.value)
+					if(coins>vendor_inv.bag[1].value)
 					{
-						cout << "\n" << vendor_inv.item2.name << "bought for " << vendor_inv.item2.value << " coins!\n";
-						coins=coins-vendor_inv.item2.value;
-						inv.addItem(vendor_inv.item2);
+						cout << "\n" << vendor_inv.bag[1].name << "bought for " << vendor_inv.bag[1].value << " coins!\n";
+						coins=coins-vendor_inv.bag[1].value;
+						inv.addItem(vendor_inv.bag[1]);
 						break;
 					}
-					else notEnough=vendor_inv.item2.name;
+					else notEnough=vendor_inv.bag[1].name;
 				}
-				else if(input==vendor_inv.item3.name)
+				else if(input==vendor_inv.bag[2].name)
 				{
 					notEnough="false";
-					if(coins>vendor_inv.item3.value)
+					if(coins>vendor_inv.bag[2].value)
 					{
-						cout << "\n" << vendor_inv.item3.name << "bought for " << vendor_inv.item3.value << " coins!\n";
-						coins=coins-vendor_inv.item3.value;
-						inv.addItem(vendor_inv.item3);
+						cout << "\n" << vendor_inv.bag[2].name << "bought for " << vendor_inv.bag[2].value << " coins!\n";
+						coins=coins-vendor_inv.bag[2].value;
+						inv.addItem(vendor_inv.bag[2]);
 						break;
 					}
-					else notEnough=vendor_inv.item3.name;
+					else notEnough=vendor_inv.bag[2].name;
 				}
-				else if(input==vendor_inv.item4.name)
+				else if(input==vendor_inv.bag[3].name)
 				{
 					notEnough="false";
-					if(coins>vendor_inv.item4.value)
+					if(coins>vendor_inv.bag[3].value)
 					{
-						cout << "\n" << vendor_inv.item4.name << "bought for " << vendor_inv.item4.value << " coins!\n";
-						coins=coins-vendor_inv.item4.value;
-						inv.addItem(vendor_inv.item4);
+						cout << "\n" << vendor_inv.bag[3].name << "bought for " << vendor_inv.bag[3].value << " coins!\n";
+						coins=coins-vendor_inv.bag[3].value;
+						inv.addItem(vendor_inv.bag[3]);
 						break;
 					}
-					else notEnough=vendor_inv.item4.name;
+					else notEnough=vendor_inv.bag[3].name;
 				}
-				else if(input==vendor_inv.item5.name)
+				else if(input==vendor_inv.bag[4].name)
 				{
 					notEnough="false";
-					if(coins>vendor_inv.item5.value)
+					if(coins>vendor_inv.bag[4].value)
 					{
-						cout << "\n" << vendor_inv.item5.name << "bought for " << vendor_inv.item5.value << " coins!\n";
-						coins=coins-vendor_inv.item5.value;
-						inv.addItem(vendor_inv.item5);
+						cout << "\n" << vendor_inv.bag[4].name << "bought for " << vendor_inv.bag[4].value << " coins!\n";
+						coins=coins-vendor_inv.bag[4].value;
+						inv.addItem(vendor_inv.bag[4]);
 						break;
 					}
-					else notEnough=vendor_inv.item5.name;
+					else notEnough=vendor_inv.bag[4].name;
 				}
-				else if(input==vendor_inv.item6.name)
+				else if(input==vendor_inv.bag[5].name)
 				{
 					notEnough="false";
-					if(coins>vendor_inv.item6.value)
+					if(coins>vendor_inv.bag[5].value)
 					{
-						cout << "\n" << vendor_inv.item6.name << "bought for " << vendor_inv.item6.value << " coins!\n";
-						coins=coins-vendor_inv.item6.value;
-						inv.addItem(vendor_inv.item6);
+						cout << "\n" << vendor_inv.bag[5].name << "bought for " << vendor_inv.bag[5].value << " coins!\n";
+						coins=coins-vendor_inv.bag[5].value;
+						inv.addItem(vendor_inv.bag[5]);
 						break;
 					}
-					else notEnough=vendor_inv.item6.name;
+					else notEnough=vendor_inv.bag[5].name;
 				}
-				else if(input==vendor_inv.item7.name)
+				else if(input==vendor_inv.bag[6].name)
 				{
 					notEnough="false";
-					if(coins>vendor_inv.item7.value)
+					if(coins>vendor_inv.bag[6].value)
 					{
-						cout << "\n" << vendor_inv.item7.name << "bought for " << vendor_inv.item7.value << " coins!\n";
-						coins=coins-vendor_inv.item7.value;
-						inv.addItem(vendor_inv.item7);
+						cout << "\n" << vendor_inv.bag[6].name << "bought for " << vendor_inv.bag[6].value << " coins!\n";
+						coins=coins-vendor_inv.bag[6].value;
+						inv.addItem(vendor_inv.bag[6]);
 						break;
 					}
-					else notEnough=vendor_inv.item7.name;
+					else notEnough=vendor_inv.bag[6].name;
 				}
-				else if(input==vendor_inv.item8.name)
+				else if(input==vendor_inv.bag[7].name)
 				{
 					notEnough="false";
-					if(coins>vendor_inv.item8.value)
+					if(coins>vendor_inv.bag[7].value)
 					{
-						cout << "\n" << vendor_inv.item8.name << "bought for " << vendor_inv.item8.value << " coins!\n";
-						coins=coins-vendor_inv.item8.value;
-						inv.addItem(vendor_inv.item8);
+						cout << "\n" << vendor_inv.bag[7].name << "bought for " << vendor_inv.bag[7].value << " coins!\n";
+						coins=coins-vendor_inv.bag[7].value;
+						inv.addItem(vendor_inv.bag[7]);
 						break;
 					}
-					else notEnough=vendor_inv.item8.name;
+					else notEnough=vendor_inv.bag[7].name;
 				}
-				else if(input==vendor_inv.item9.name)
+				else if(input==vendor_inv.bag[8].name)
 				{
 					notEnough="false";
-					if(coins>vendor_inv.item9.value)
+					if(coins>vendor_inv.bag[8].value)
 					{
-						cout << "\n" << vendor_inv.item9.name << "bought for " << vendor_inv.item9.value << " coins!\n";
-						coins=coins-vendor_inv.item9.value;
-						inv.addItem(vendor_inv.item9);
+						cout << "\n" << vendor_inv.bag[8].name << "bought for " << vendor_inv.bag[8].value << " coins!\n";
+						coins=coins-vendor_inv.bag[8].value;
+						inv.addItem(vendor_inv.bag[8]);
 						break;
 					}
-					else notEnough=vendor_inv.item9.name;
+					else notEnough=vendor_inv.bag[8].name;
 				}
-				else if(input==vendor_inv.item10.name)
+				else if(input==vendor_inv.bag[9].name)
 				{
 					notEnough="false";
-					if(coins>vendor_inv.item10.value)
+					if(coins>vendor_inv.bag[9].value)
 					{
-						cout << "\n" << vendor_inv.item10.name << "bought for " << vendor_inv.item10.value << " coins!\n";
-						coins=coins-vendor_inv.item10.value;
-						inv.addItem(vendor_inv.item10);
+						cout << "\n" << vendor_inv.bag[9].name << "bought for " << vendor_inv.bag[9].value << " coins!\n";
+						coins=coins-vendor_inv.bag[9].value;
+						inv.addItem(vendor_inv.bag[9]);
 						break;
 					}
-					else notEnough=vendor_inv.item10.name;
+					else notEnough=vendor_inv.bag[9].name;
 				}
-				else if(input==vendor_inv.item11.name)
+				else if(input==vendor_inv.bag[10].name)
 				{
 					notEnough="false";
-					if(coins>vendor_inv.item11.value)
+					if(coins>vendor_inv.bag[10].value)
 					{
-						cout << "\n" << vendor_inv.item11.name << "bought for " << vendor_inv.item11.value << " coins!\n";
-						coins=coins-vendor_inv.item11.value;
-						inv.addItem(vendor_inv.item11);
+						cout << "\n" << vendor_inv.bag[10].name << "bought for " << vendor_inv.bag[10].value << " coins!\n";
+						coins=coins-vendor_inv.bag[10].value;
+						inv.addItem(vendor_inv.bag[10]);
 						break;
 					}
-					else notEnough=vendor_inv.item11.name;
+					else notEnough=vendor_inv.bag[10].name;
 				}
-				else if(input==vendor_inv.item12.name)
+				else if(input==vendor_inv.bag[11].name)
 				{
 					notEnough="false";
-					if(coins>vendor_inv.item12.value)
+					if(coins>vendor_inv.bag[11].value)
 					{
-						cout << "\n" << vendor_inv.item12.name << "bought for " << vendor_inv.item12.value << " coins!\n";
-						coins=coins-vendor_inv.item12.value;
-						inv.addItem(vendor_inv.item12);
+						cout << "\n" << vendor_inv.bag[11].name << "bought for " << vendor_inv.bag[11].value << " coins!\n";
+						coins=coins-vendor_inv.bag[11].value;
+						inv.addItem(vendor_inv.bag[11]);
 						break;
 					}
-					else notEnough=vendor_inv.item12.name;
+					else notEnough=vendor_inv.bag[11].name;
 				}
 				else if(input=="x" || input=="X") break;
 				else 
@@ -886,87 +692,87 @@ void Character::vendorScreen(Inventory& vendor_inv)
 				{
 					invalid=true;
 				}
-				else if(input==inv.item1.name)
+				else if(input==inv.bag[1].name)
 				{
-					cout << "\n" << inv.item1.name << " sold for " << inv.item1.value << " coins!\n";
-					coins=coins+inv.item1.value;
+					cout << "\n" << inv.bag[1].name << " sold for " << inv.bag[1].value << " coins!\n";
+					coins=coins+inv.bag[1].value;
 					inv.removeItem(1);
 					break;
 				}
-				else if(input==inv.item2.name)
+				else if(input==inv.bag[1].name)
 				{
-					cout << "\n" << inv.item2.name << " sold for " << inv.item2.value << " coins!\n";
-					coins=coins+inv.item2.value;
+					cout << "\n" << inv.bag[1].name << " sold for " << inv.bag[1].value << " coins!\n";
+					coins=coins+inv.bag[1].value;
 					inv.removeItem(2);
 					break;
 				}
-				else if(input==inv.item3.name)
+				else if(input==inv.bag[2].name)
 				{
-					cout << "\n" << inv.item3.name << " sold for " << inv.item3.value << " coins!\n";
-					coins=coins+inv.item3.value;
+					cout << "\n" << inv.bag[2].name << " sold for " << inv.bag[2].value << " coins!\n";
+					coins=coins+inv.bag[2].value;
 					inv.removeItem(3);
 					break;
 				}
-				else if(input==inv.item4.name)
+				else if(input==inv.bag[3].name)
 				{
-					cout << "\n" << inv.item4.name << " sold for " << inv.item4.value << " coins!\n";
-					coins=coins+inv.item4.value;
+					cout << "\n" << inv.bag[3].name << " sold for " << inv.bag[3].value << " coins!\n";
+					coins=coins+inv.bag[3].value;
 					inv.removeItem(4);
 					break;
 				}
-				else if(input==inv.item5.name)
+				else if(input==inv.bag[4].name)
 				{
-					cout << "\n" << inv.item5.name << " sold for " << inv.item5.value << " coins!\n";
-					coins=coins+inv.item5.value;
+					cout << "\n" << inv.bag[4].name << " sold for " << inv.bag[4].value << " coins!\n";
+					coins=coins+inv.bag[4].value;
 					inv.removeItem(5);
 					break;
 				}
-				else if(input==inv.item6.name)
+				else if(input==inv.bag[5].name)
 				{
-					cout << "\n" << inv.item6.name << " sold for " << inv.item6.value << " coins!\n";
-					coins=coins+inv.item6.value;
+					cout << "\n" << inv.bag[5].name << " sold for " << inv.bag[5].value << " coins!\n";
+					coins=coins+inv.bag[5].value;
 					inv.removeItem(6);
 					break;
 				}
-				else if(input==inv.item7.name)
+				else if(input==inv.bag[6].name)
 				{
-					cout << "\n" << inv.item7.name << " sold for " << inv.item7.value << " coins!\n";
-					coins=coins+inv.item7.value;
+					cout << "\n" << inv.bag[6].name << " sold for " << inv.bag[6].value << " coins!\n";
+					coins=coins+inv.bag[6].value;
 					inv.removeItem(7);
 					break;
 				}
-				else if(input==inv.item8.name)
+				else if(input==inv.bag[7].name)
 				{
-					cout << "\n" << inv.item8.name << " sold for " << inv.item8.value << " coins!\n";
-					coins=coins+inv.item8.value;
+					cout << "\n" << inv.bag[7].name << " sold for " << inv.bag[7].value << " coins!\n";
+					coins=coins+inv.bag[7].value;
 					inv.removeItem(8);
 					break;
 				}
-				else if(input==inv.item9.name)
+				else if(input==inv.bag[8].name)
 				{
-					cout << "\n" << inv.item9.name << " sold for " << inv.item9.value << " coins!\n";
-					coins=coins+inv.item9.value;
+					cout << "\n" << inv.bag[8].name << " sold for " << inv.bag[8].value << " coins!\n";
+					coins=coins+inv.bag[8].value;
 					inv.removeItem(9);
 					break;
 				}
-				else if(input==inv.item10.name)
+				else if(input==inv.bag[9].name)
 				{
-					cout << "\n" << inv.item10.name << " sold for " << inv.item10.value << " coins!\n";
-					coins=coins+inv.item10.value;
+					cout << "\n" << inv.bag[9].name << " sold for " << inv.bag[9].value << " coins!\n";
+					coins=coins+inv.bag[9].value;
 					inv.removeItem(10);
 					break;
 				}
-				else if(input==inv.item11.name)
+				else if(input==inv.bag[10].name)
 				{
-					cout << "\n" << inv.item11.name << " sold for " << inv.item11.value << " coins!\n";
-					coins=coins+inv.item11.value;
+					cout << "\n" << inv.bag[10].name << " sold for " << inv.bag[10].value << " coins!\n";
+					coins=coins+inv.bag[10].value;
 					inv.removeItem(11);
 					break;
 				}
-				else if(input==inv.item12.name)
+				else if(input==inv.bag[11].name)
 				{
-					cout << "\n" << inv.item12.name << " sold for " << inv.item12.value << " coins!\n";
-					coins=coins+inv.item12.value;
+					cout << "\n" << inv.bag[11].name << " sold for " << inv.bag[11].value << " coins!\n";
+					coins=coins+inv.bag[11].value;
 					inv.removeItem(12);
 					break;
 				}
@@ -998,57 +804,11 @@ void Character::vendorScreen(Inventory& vendor_inv)
 void Character::Inventory::removeItem(int spot)
 {
 	Items empty(0);
-	switch(spot)
+	bag[spot].quantity--;
+	for(int i=0;i<12;i++)
 	{
-	case 1:
-		item1.quantity--;
-		break;
-	case 2:
-		item2.quantity--;
-		break;
-	case 3:
-		item3.quantity--;
-		break;
-	case 4:
-		item4.quantity--;
-		break;
-	case 5:
-		item5.quantity--;
-		break;
-	case 6:
-		item6.quantity--;
-		break;
-	case 7:
-		item7.quantity--;
-		break;
-	case 8:
-		item8.quantity--;
-		break;
-	case 9:
-		item9.quantity--;
-		break;
-	case 10:
-		item10.quantity--;
-		break;
-	case 11:
-		item11.quantity--;
-		break;
-	case 12:
-		item12.quantity--;
-		break;
-	};
-	if(item1.quantity==0) item1=empty;
-	if(item2.quantity==0) item2=empty;
-	if(item3.quantity==0) item3=empty;
-	if(item4.quantity==0) item4=empty;
-	if(item5.quantity==0) item5=empty;
-	if(item6.quantity==0) item6=empty;
-	if(item7.quantity==0) item7=empty;
-	if(item8.quantity==0) item8=empty;
-	if(item9.quantity==0) item9=empty;
-	if(item10.quantity==0) item10=empty;
-	if(item11.quantity==0) item11=empty;
-	if(item12.quantity==0) item12=empty;
+		if(bag[i].quantity==0) bag[i]=empty;
+	}
 }
 
 //Checks for collision

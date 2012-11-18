@@ -45,3 +45,4 @@ Items::Items(int id)
 			break;
 	} 
 }
+Items::Items(){}

@@ -8,6 +8,7 @@ class Items
 {
 public:
 	Items(int id);
+	Items();
 	//Item Properties
 	std::string name;
 	int quantity;
