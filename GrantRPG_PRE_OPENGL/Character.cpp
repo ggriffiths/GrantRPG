@@ -1,10 +1,16 @@
 //--Character.cpp--//
 #include "Character.h"
 
+///
+
+
+#include <GL/glut.h>
+
+
 //--Project Headers--//
 #include "Game.h"
 #include "GameMenu.h"
-#include "Item.h"
+#include "Items.h"
 #include "Character.h"
 #include "Maps.h"
 #include "Settings.h"
@@ -13,14 +19,14 @@
 
 //--Language Headers--//
 #include <iostream>
-#include <GL\glut.h>
+#include <windows.h>
 #include <string>
 #include <fstream>
 #include <ctime>
 
 //--Namespaces--//
 using namespace std;
-
+using namespace System;
 
 //--Global Variables--//
 enum keys{UPRIGHT=1,UPLEFT,DOWNRIGHT,DOWNLEFT,UP,DOWN,RIGHT,LEFT,E,ENTER,C,TAB,MAX_NUM_KEYS};
@@ -28,7 +34,6 @@ enum keys{UPRIGHT=1,UPLEFT,DOWNRIGHT,DOWNLEFT,UP,DOWN,RIGHT,LEFT,E,ENTER,C,TAB,M
 //Character constructor (zero params)
 Character::Character() : inv(false)
 {
-	
 
 }
 
@@ -342,7 +347,7 @@ void Character::addCoin()
 }
 
 
-//Holds objects of Item!
+//Holds objects of items!
 Character::Inventory::Inventory(bool loadFromFile) : bag()
 {
 	if(loadFromFile)
@@ -351,7 +356,7 @@ Character::Inventory::Inventory(bool loadFromFile) : bag()
 	}
 	else
 	{
-		numItemHolding=0;
+		numItemsHolding=0;
 	}
 }
 
@@ -382,7 +387,7 @@ void Character::Inventory::printInventory(bool player)
 	cout << "  \n  ";
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0xf0);
 
-	//Line 1 (6 Item)
+	//Line 1 (6 Items)
 	for(int i=0;i<12;i++)
 	{
 		// line space after 6
@@ -417,8 +422,8 @@ void Character::Inventory::printInventory(bool player)
 	cout << "\n";
 
 	unsigned char coin=155;
-	if(player) cout << "Your Item: ";
-	else  cout << "NPC Item: ";
+	if(player) cout << "Your items: ";
+	else  cout << "NPC items: ";
 	for(int i=0;i<12;i++)
 	{
 		if(bag[i].name!="") cout << bag[i].name << "(" << coin << bag[i].value << ")" << ", ";
@@ -433,13 +438,13 @@ void Character::Inventory::pSpaces(int size)
 }
 
 //Simply sets an item to an inventory slot.
-void Character::Inventory::setItem(Item& new_item,int spot)
+void Character::Inventory::setItem(Items& new_item,int spot)
 {
 	bag[spot] = new_item;
 }
 
 //Adds item to inventory. If item already exists in inventory, it adds to the stack.
-void Character::Inventory::addItem(const Item& new_item)
+void Character::Inventory::addItem(const Items& new_item)
 {
 	int invSlot=getSpotOfItemInInv(new_item);
 	if(invSlot>0)
@@ -448,13 +453,13 @@ void Character::Inventory::addItem(const Item& new_item)
 	}
 	else if(invSlot==0)
 	{
-		numItemHolding++;
-		bag[numItemHolding]=new_item;
+		numItemsHolding++;
+		bag[numItemsHolding]=new_item;
 	}
 }
 
 //Finds the location of an item in the inventory.
-int Character::Inventory::getSpotOfItemInInv(const Item& new_item)
+int Character::Inventory::getSpotOfItemInInv(const Items& new_item)
 {
 	for(int i=0;i<12;i++)
 	{
@@ -804,7 +809,7 @@ void Character::vendorScreen(Inventory& vendor_inv)
 //Lowers item quantity by 1 and removes the item if quanitity==0
 void Character::Inventory::removeItem(int spot)
 {
-	Item empty(0);
+	Items empty(0);
 	bag[spot].quantity--;
 	for(int i=0;i<12;i++)
 	{
@@ -879,7 +884,7 @@ bool Character::checkMapValue(int value,int dir,char map[22][42])
 //Handles Player Movement 
 void Character::handlePlayerMovement(int key,Maps* currentLevel)
 {
-	Item shield(2);
+	Items shield(2);
 	// Move
 	for(int i=1;i<=8;i++)
 	{

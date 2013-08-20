@@ -9,13 +9,13 @@
 //--Language Headers--//
 #include <ctime>
 #include <iostream>
-#include <GL\glut.h>
+#include <windows.h>
 #include <string>
 #include <fstream>
 
 //--Namespaces--//
 using namespace std;
-
+using namespace System;
 
 void console_initialize()
 {

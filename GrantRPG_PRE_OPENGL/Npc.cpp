@@ -4,7 +4,7 @@
 //--Project Headers--//
 #include "Game.h"
 #include "GameMenu.h"
-#include "Item.h"
+#include "Items.h"
 #include "Character.h"
 #include "Maps.h"
 #include "Settings.h"
@@ -13,16 +13,14 @@
 
 //--Language Headers--//
 #include <iostream>
-#include <GL\glut.h>
+#include <windows.h>
 #include <string>
 #include <fstream>
 #include <ctime>
 
-
-
 //--Namespaces--//
 using namespace std;
-//
+using namespace System;
 
 //--Global Variables--//
 enum keys{UPRIGHT=1,UPLEFT,DOWNRIGHT,DOWNLEFT,UP,DOWN,RIGHT,LEFT,E,ENTER,C,TAB,MAX_NUM_KEYS};
@@ -38,13 +36,13 @@ Npc::Npc(int new_npc_type,Settings& currentSettings,Maps& currentLevel) : Charac
 	playerSpotted=false;
 
 	//Get all item objects
-	Item empty(0);
-	Item sword(1);
-	Item shield(2);
+	Items empty(0);
+	Items sword(1);
+	Items shield(2);
 
 	//Create default inventories
-	Item enemyBag();
-	Item vendorBag();
+	Items enemyBag();
+	Items vendorBag();
 
 	switch(new_npc_type)
 	{

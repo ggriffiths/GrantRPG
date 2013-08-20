@@ -1,5 +1,5 @@
 #pragma once
-#include "Item.h"
+#include "Items.h"
 #include <string>
 #include <vector>
 
@@ -16,17 +16,17 @@ class Character
 	public:
 		Inventory(bool loadFromFile);
 		// Inventory Slots
-		int numItemHolding;
-		std::vector<Item> bag;
+		int numItemsHolding;
+		Items bag[12];
 
 		// Change Inventory
-		void setItem(Item& new_item,int spot);
-		void addItem(const Item& new_item); 
+		void setItem(Items& new_item,int spot);
+		void addItem(const Items& new_item); 
 		void removeItem(int spot);
 
 		// Inventory Detection
-		int findItemSpot(const Item& check_item);
-		int getSpotOfItemInInv(const Item& new_item);
+		int findItemSpot(const Items& check_item);
+		int getSpotOfItemInInv(const Items& new_item);
 
 		//Inventory Utilities
 		void printInventory(bool player);

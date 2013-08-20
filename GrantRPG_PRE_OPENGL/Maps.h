@@ -3,13 +3,10 @@
 #include "Player.h"
 #include "Npc.h"
 #include <string>
+#include <windows.h>
+using namespace System;
 
-
-
-
-
-
-class Item;
+class Items;
 class Settings;
 class Npc;
 class Player;
@@ -52,10 +49,10 @@ public:
 	// Map Objects
 	MapColors cmc;
 
-	//Default Item
-	Item const empty;
-	Item const sword;
-	Item const shield;
+	//Default Items
+	Items const empty;
+	Items const sword;
+	Items const shield;
 
 	//Map Variables
 	int level;

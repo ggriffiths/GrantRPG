@@ -5,14 +5,14 @@
 #include "Game.h"
 #include "Maps.h"
 #include "Character.h"
-#include "Item.h"
+#include "Items.h"
 #include "Settings.h"
 #include "Player.h"
 #include "Npc.h"
 
 //--Language Headers--//
 #include <iostream>
-#include <GL\glut.h>
+#include <windows.h>
 #include <string>
 #include <fstream>
 #include <ctime>
@@ -22,7 +22,7 @@
 
 //--Namespaces--//
 using namespace std;
-
+using namespace System;
 
 //--Global Variables--//
 #define CHOICES 5 //max menu choice
@@ -500,11 +500,11 @@ void GameMenu::load(Settings& currentSettings,Player& p1,Maps& currentLevel, boo
 		health=line.at(12);
 
 	//Load Inventory... change me
-	Item loadedItem1(0);
-	Item loadedItem2(0);
-	Item loadedItem3(0);
-	Item loadedItem4(0);
-	Item loadedItem5(0);
+	Items loadedItem1(0);
+	Items loadedItem2(0);
+	Items loadedItem3(0);
+	Items loadedItem4(0);
+	Items loadedItem5(0);
 	int loadedItemNum=0;
 
 	//Prompt user to continue

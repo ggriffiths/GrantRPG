@@ -6,11 +6,11 @@
 #include "GameMenu.h"
 #include "Maps.h"
 #include "Character.h"
-#include "Item.h"
+#include "Items.h"
 
 //--Language Headers--//
 #include <iostream>
-#include <GL\glut.h>
+#include <windows.h>
 #include <string>
 #include <fstream>
 #include <ctime>
@@ -18,7 +18,7 @@
 
 //--Namespaces--//
 using namespace std;
-
+using namespace System;
 
 //--Global Variables--//
 #define NUM_OF_SETTINGS 4

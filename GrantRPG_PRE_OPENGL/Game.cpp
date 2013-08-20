@@ -5,12 +5,11 @@
 #include "GameMenu.h"
 #include "Maps.h"
 #include "Character.h"
-#include "Item.h"
+#include "Items.h"
 
 //--Language Headers--//
 #include <iostream>
-
-
+#include <windows.h>
 #include <string>
 #include <fstream>
 #include <math.h>
@@ -18,7 +17,7 @@
 
 //--Namespaces--//
 using namespace std;
-
+using namespace System;
 
 //--Global Variables--//
 enum keys{UPRIGHT=1,UPLEFT,DOWNRIGHT,DOWNLEFT,UP,DOWN,RIGHT,LEFT,E,ENTER,C,TAB,MAX_NUM_KEYS};

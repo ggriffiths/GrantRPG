@@ -4,7 +4,7 @@
 //--Project Headers--//
 #include "Game.h"
 #include "GameMenu.h"
-#include "Item.h"
+#include "Items.h"
 #include "Character.h"
 #include "Settings.h"
 #include "Player.h"
@@ -12,7 +12,7 @@
 
 //--Language Headers--//
 #include <iostream>
-#include <GL\glut.h>
+#include <windows.h>
 #include <string>
 #include <fstream>
 #include <cstdlib>
@@ -21,7 +21,7 @@
 
 //--Namespaces--//
 using namespace std;
-
+using namespace System;
 
 //--Global Variables--//
 enum keys{UP=5,DOWN,RIGHT,LEFT};

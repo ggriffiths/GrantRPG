@@ -4,21 +4,21 @@
 //--Project Headers--//
 #include "Game.h"
 #include "GameMenu.h"
-#include "Item.h"
+#include "Items.h"
 #include "Character.h"
 #include "Maps.h"
 #include "Settings.h"
 
 //--Language Headers--//
 #include <iostream>
-#include <GL\glut.h>
+#include <windows.h>
 #include <string>
 #include <fstream>
 #include <ctime>
 
 //--Namespaces--//
 using namespace std;
-
+using namespace System;
 
 //Player constructor!
 Player::Player(int new_health,int new_x,int new_y,int new_coins,char new_icon,WORD new_color,bool new_harm,Settings& currentSettings) 
